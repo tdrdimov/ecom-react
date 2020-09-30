@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors'
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
+import { Link } from 'react-router-dom';
 
 import './checkout.styles.scss'
 
@@ -34,6 +35,7 @@ const CheckoutPage = ({ cartItems, total }) => (
     <div className="total">
       <span>TOTAL: ${total}</span>
     </div>
+    <Link className="pay-now" to="/payment">Buy Now</Link>
   </div>
 )
 
