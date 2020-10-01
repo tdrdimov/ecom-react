@@ -1,32 +1,25 @@
 .checkout-page {
-  width: 55%;
-  min-height: 90vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 50px auto;
+  max-width: 1170px;
+  align-items:flex-start;
+  align-content:flex-start;
 
-  .checkout-header {
-    width: 100%;
-    padding: 10px 0;
+  .checkout-items {
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid darkgrey;
+    flex-wrap: wrap;
+    width: 60%;
+  }
 
-    .header-block {
-      text-transform: capitalize;
-      width: 23%;
-
-      &:last-child {
-        width: 8%;
-      }
-    }
+  .checkout-payment {
+    width: 40%;
   }
 
   .total {
     margin-top: 30px;
-    margin-left: auto;
-    font-size: 36px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: right;
   }
 
   .pay-now {

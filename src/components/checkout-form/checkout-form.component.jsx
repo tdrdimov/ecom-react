@@ -80,6 +80,20 @@ const CheckoutForm = () => {
   ) : (
     <form className="Form" onSubmit={handleSubmit}>
       <fieldset className="FormGroup">
+      <Field
+          label="Email"
+          id="email"
+          type="email"
+          placeholder="janedoe@gmail.com"
+          required
+          autoComplete="email"
+          value={billingDetails.email}
+          onChange={(e) => {
+            setBillingDetails({...billingDetails, email: e.target.value});
+          }}
+        />
+      </fieldset>
+      <fieldset className="FormGroup">
         <Field
           label="Name"
           id="name"
@@ -92,18 +106,7 @@ const CheckoutForm = () => {
             setBillingDetails({...billingDetails, name: e.target.value});
           }}
         />
-        <Field
-          label="Email"
-          id="email"
-          type="email"
-          placeholder="janedoe@gmail.com"
-          required
-          autoComplete="email"
-          value={billingDetails.email}
-          onChange={(e) => {
-            setBillingDetails({...billingDetails, email: e.target.value});
-          }}
-        />
+        
         <Field
           label="Phone"
           id="phone"
