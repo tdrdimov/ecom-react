@@ -16,7 +16,7 @@ exports.createPaymentIntent = functions.https.onRequest((request, response) => {
     const total = totalPrice.split('.').join("")
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: total,
+      amount: Number(total),
       currency: "usd"
     });
     
