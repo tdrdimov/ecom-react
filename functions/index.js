@@ -10,19 +10,13 @@ app.use(express.static("."));
 app.use(express.json());
 
 exports.createPaymentIntent = functions.https.onRequest((request, response) => {
-  console.log('Begining...')
   cors(request, response, async() => {
-    const calculateOrderAmount = items => {
-      // Replace this constant with a calculation of the order's amount
-      // Calculate the order total on the server to prevent
-      // people from directly manipulating the amount on the client
-      return 1400;
-    };
-    console.log(request.body)
-    const { items } = request.body;
+    
+    const totalPrice = Number(request.body.totalPrice).toFixed(2);
+    const total = totalPrice.split('.').join("")
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
+      amount: total,
       currency: "usd"
     });
     

@@ -51,6 +51,7 @@
 
 .FormRowLabel {
   width: 15%;
+  font-weight: 600;
   min-width: 70px;
   padding: 11px 0;
   color: rgba(26,26,26,.9);
@@ -101,10 +102,6 @@
 
 .SubmitButton {
   margin: 0 0 0 auto;
-}
-
-.SubmitButton:active {
-  
 }
 
 .SubmitButton.SubmitButton--error {

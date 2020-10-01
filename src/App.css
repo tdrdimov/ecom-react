@@ -1,6 +1,7 @@
 body {
-  font-family: 'Open Sans Condensed';
+  font-family: 'Roboto', sans-serif;
   padding: 20px 40px;
+  font-weight: 300;
 }
 
 a {

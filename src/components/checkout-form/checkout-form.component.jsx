@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors'
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios'
@@ -10,7 +13,7 @@ import ErrorMessage from '../payment-form-elements/payment-error.component'
 
 import './checkout-form.styles.scss';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ cartItems, total }) => {
   const [clientSecret, setClientSecret] = useState('');
 
   const stripe = useStripe();
@@ -26,7 +29,7 @@ const CheckoutForm = () => {
   });
 
   useEffect(() => {
-      axios.post('http://localhost:5000/crwn-react-6b805/us-central1/createPaymentIntent', {items: [{ id: "xl-tshirt" }]})
+      axios.post('http://localhost:5000/crwn-react-6b805/us-central1/createPaymentIntent', {items: cartItems, totalPrice: total})
       .then((response) => {
         setClientSecret(response.data.clientSecret);
       })
@@ -35,7 +38,7 @@ const CheckoutForm = () => {
         console.log(error);
       });
 
-  }, []);
+  }, [cartItems, total]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -154,4 +157,9 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+  total: selectCartTotal
+})
+
+export default connect(mapStateToProps)(CheckoutForm)
