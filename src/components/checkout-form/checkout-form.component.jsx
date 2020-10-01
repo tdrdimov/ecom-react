@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from 'axios'
 
 import CardField from '../payment-card/payment-card.component'
 import Field from '../payment-form-elements/payment-field.component'
@@ -10,6 +11,8 @@ import ErrorMessage from '../payment-form-elements/payment-error.component'
 import './checkout-form.styles.scss';
 
 const CheckoutForm = () => {
+  const [clientSecret, setClientSecret] = useState('');
+
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
@@ -21,6 +24,18 @@ const CheckoutForm = () => {
     phone: '',
     name: '',
   });
+
+  useEffect(() => {
+      axios.post('http://localhost:5000/crwn-react-6b805/us-central1/createPaymentIntent', {items: [{ id: "xl-tshirt" }]})
+      .then((response) => {
+        setClientSecret(response.data.clientSecret);
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
+
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,10 +55,12 @@ const CheckoutForm = () => {
       setProcessing(true);
     }
 
-    const payload = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-      billing_details: billingDetails,
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        type: 'card',
+        card: elements.getElement(CardElement),
+        billing_details: billingDetails,
+      }
     });
 
     setProcessing(false);
@@ -51,7 +68,8 @@ const CheckoutForm = () => {
     if (payload.error) {
       setError(payload.error);
     } else {
-      setPaymentMethod(payload.paymentMethod);
+      console.log(payload);
+      // setPaymentMethod(payload.paymentMethod);
     }
   };
 

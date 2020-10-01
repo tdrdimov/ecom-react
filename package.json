@@ -5,7 +5,10 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.9.0",
+    "axios": "^0.20.0",
     "firebase": "6.0.2",
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0",
     "lodash.memoize": "^4.1.2",
     "node-sass": "4.12.0",
     "react": "^16.8.6",

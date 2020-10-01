@@ -100,30 +100,11 @@
 }
 
 .SubmitButton {
-  max-width: 200px;
-  display: block;
-  font-size: 16px;
-  width: 100%;
-  height: 40px;
-  margin: 40px 0 0 auto;
-  background-color: rgba(26,26,26,.9);
-  border: 1px solid rgba(26,26,26,.9);
-  border-radius: 5px;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 100ms ease-in-out;
-  &:hover {
-    background: #fff;
-    color: rgba(26,26,26,.9);
-  }
+  margin: 0 0 0 auto;
 }
 
 .SubmitButton:active {
-  background-color: #d782d9;
-  box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 #e298d8;
-  transform: scale(0.99);
+  
 }
 
 .SubmitButton.SubmitButton--error {
