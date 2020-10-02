@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { selectCurrentUser } from '../../redux/user/user.selector'
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors'
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -11,9 +14,13 @@ import Field from '../payment-form-elements/payment-field.component'
 import SubmitButton from '../payment-form-elements/payment-button.component'
 import ErrorMessage from '../payment-form-elements/payment-error.component'
 
+import { removeItem } from '../../redux/cart/cart.actions'
+
+import { firestore } from '../../firebase/firebase.utils'
+
 import './checkout-form.styles.scss';
 
-const CheckoutForm = ({ cartItems, total }) => {
+const CheckoutForm = ({ user, cartItems, total, removeItem }) => {
   const [clientSecret, setClientSecret] = useState('');
 
   const stripe = useStripe();
@@ -71,32 +78,24 @@ const CheckoutForm = ({ cartItems, total }) => {
     if (payload.error) {
       setError(payload.error);
     } else {
-      console.log(payload);
-      // setPaymentMethod(payload.paymentMethod);
+      const userRef = firestore.collection(`users`).doc(user.id).collection('payments');
+      setPaymentMethod(payload.paymentIntent.payment_method);
+      userRef.add(payload.paymentIntent).then(() => 
+        cartItems.map(cartItem => removeItem(cartItem))
+      )
+      
     }
   };
 
-  const reset = () => {
-    setError(null);
-    setProcessing(false);
-    setPaymentMethod(null);
-    setBillingDetails({
-      email: '',
-      phone: '',
-      name: '',
-    });
-  };
-
   return paymentMethod ? (
-    <div className="Result">
-      <div className="ResultTitle" role="alert">
+    <div className="result">
+      <div role="alert">
         Payment successful
       </div>
-      <div className="ResultMessage">
-        Thanks for trying Stripe Elements. No money was charged, but we
-        generated a PaymentMethod: {paymentMethod.id}
+      <div className="result-message">
+        <h1>Thank you for your purchase, your products will be shipped shortly!</h1>
       </div>
-      <div onClick={reset}>Reset form!</div>
+      <Link className="custom-button" to="/">Continue Shopping</Link>
     </div>
   ) : (
     <form className="Form" onSubmit={handleSubmit}>
@@ -149,6 +148,9 @@ const CheckoutForm = ({ cartItems, total }) => {
           }}
         />
       </fieldset>
+      <div className="total">
+        <span>Total price: ${Number(total).toFixed(2)}</span>
+      </div>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
       <SubmitButton processing={processing} error={error} disabled={!stripe}>
         Place your order
@@ -158,8 +160,13 @@ const CheckoutForm = ({ cartItems, total }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser,
   cartItems: selectCartItems,
   total: selectCartTotal
 })
 
-export default connect(mapStateToProps)(CheckoutForm)
+const mapDispatchToProps = dispatch => ({
+  removeItem: item => dispatch(removeItem(item))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm)

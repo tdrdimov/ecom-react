@@ -1,7 +1,7 @@
 .checkout-page {
   display: flex;
   margin: 50px auto;
-  max-width: 1170px;
+  max-width: 1440px;
   align-items:flex-start;
   align-content:flex-start;
 
@@ -13,13 +13,6 @@
 
   .checkout-payment {
     width: 40%;
-  }
-
-  .total {
-    margin-top: 30px;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: right;
   }
 
   .pay-now {

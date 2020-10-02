@@ -120,7 +120,6 @@
 
 .ErrorMessage {
   color: red;
-  position: absolute;
   display: flex;
   justify-content: center;
   padding: 0 15px;
@@ -135,35 +134,16 @@
   will-change: opacity, transform;
 }
 
-.ErrorMessage svg {
-  margin-right: 10px;
-}
-
-.Result {
+.result {
   margin-top: 50px;
   text-align: center;
   animation: fade 200ms ease-out;
 }
 
-.ResultTitle {
-  color: #fff;
-  font-weight: 500;
-  margin-bottom: 8px;
-  font-size: 17px;
-  text-align: center;
-}
-
-.ResultMessage {
-  color: rgba(26,26,26,.9);
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 25px;
-  line-height: 1.6em;
-  text-align: center;
-}
-
-.ResetButton {
-  border: 0;
-  cursor: pointer;
-  background: transparent;
+.total {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: right;
 }
