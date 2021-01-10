@@ -8,11 +8,6 @@
   width: 100%;
   background-color: #fff;
   box-shadow: 0 0 0.5em rgba(0,0,0,0.3);
-
-  @media(min-width: 575px) {
-    max-width: 320px;
-    margin: 0 10px 20px 0;
-  }
   
   &:hover {
     box-shadow: 0 0 1em rgba(0,0,0,0.3);

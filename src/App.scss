@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 body {
   font-family: 'Roboto', sans-serif;
   padding: 20px 15px;
@@ -12,4 +14,12 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.container-fluid {
+  max-width: 1440px;
+}
+
+.app_body {
+  padding-top: 95px;
 }

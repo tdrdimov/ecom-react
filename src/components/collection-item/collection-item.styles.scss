@@ -1,6 +1,4 @@
 .collection-item {
-  width: 22vw;
-  min-width: 280px;
   display: flex;
   flex-direction: column;
   height: 400px;
@@ -27,7 +25,6 @@
 
   .custom-button {
     width: calc(100% - 40px);
-    padding: 0;
     margin-bottom: 20px;
   }
 
