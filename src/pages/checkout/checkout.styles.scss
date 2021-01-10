@@ -1,18 +1,28 @@
 .checkout-page {
-  display: flex;
   margin: 50px auto;
   max-width: 1440px;
   align-items:flex-start;
   align-content:flex-start;
+  justify-content: space-between;
+
+  @media(min-width: 768px) {
+    display: flex;
+  }
 
   .checkout-items {
     display: flex;
     flex-wrap: wrap;
-    width: 60%;
+    justify-content: center;
+    
+    @media(min-width: 768px) {
+      width: 59%;
+    }
   }
 
   .checkout-payment {
-    width: 40%;
+    @media(min-width: 768px) {
+      width: 39%;
+    }
   }
 
   .pay-now {
@@ -20,6 +30,7 @@
     border-radius: 5px;
     padding: 5px 37px;
     cursor: pointer;
+
     &:hover {
       background: #000;
       color: #fff;

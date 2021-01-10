@@ -6,10 +6,19 @@
   .title {
     font-size: 28px;
     margin-bottom: 25px;
+    text-align: center;
+    @media(min-width: 768px) {
+      text-align: left;
+    }
   }
 
   .preview {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media(min-width: 768px) {
+      justify-content: space-between;
+    }
   }
 }

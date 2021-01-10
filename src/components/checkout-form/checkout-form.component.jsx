@@ -36,7 +36,7 @@ const CheckoutForm = ({ user, cartItems, total, removeItem }) => {
   });
 
   useEffect(() => {
-      axios.post('http://localhost:5000/crwn-react-6b805/us-central1/createPaymentIntent', {items: cartItems, totalPrice: total})
+      axios.post('https://us-central1-crwn-react-6b805.cloudfunctions.net/createPaymentIntent', {items: cartItems, totalPrice: total})
       .then((response) => {
         setClientSecret(response.data.clientSecret);
       })
@@ -80,10 +80,8 @@ const CheckoutForm = ({ user, cartItems, total, removeItem }) => {
     } else {
       const userRef = firestore.collection(`users`).doc(user.id).collection('payments');
       setPaymentMethod(payload.paymentIntent.payment_method);
-      userRef.add(payload.paymentIntent).then(() => 
-        cartItems.map(cartItem => removeItem(cartItem))
-      )
-      
+      userRef.add(payload.paymentIntent)
+      cartItems.map(cartItem => removeItem(cartItem))
     }
   };
 
